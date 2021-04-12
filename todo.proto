@@ -1,0 +1,38 @@
+// To-do storage and management
+syntax = "proto3";
+package todo;
+import public "google/protobuf/empty.proto";
+ 
+// Todo service definition
+service Todo {
+  // Create an item at the end of a todo list
+  rpc CreateItem(TodoItem) returns (google.protobuf.Empty) {}
+  // Update an item's completeness or order
+  rpc UpdateItem(TodoItem) returns (google.protobuf.Empty) {}
+  // Get all the items in a todo list
+  rpc GetList(google.protobuf.Empty) returns (TodoList) {}
+}
+ 
+// TodoItem represents check-box items in a list
+message TodoItem {
+  // Machine-readable identifier of the item
+  string id = 1;
+  // The thing to do, e.g. "Clean the house"
+  string action = 3;
+  // True if the task been completed
+  bool is_complete = 4;
+  // Order of item in list
+  string order = 5;
+}
+ 
+// TodoList is a list of things we want to check off
+message TodoList {
+  // Machine-readable identifier of the list
+  string id = 1;
+  // Human-readable name of the list
+  string name = 2;
+  // List owner
+  string creator = 3;
+  // Any amount of items to do
+  repeated TodoItem items = 4;
+}
